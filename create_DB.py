@@ -1,8 +1,9 @@
 import json
 from random import randint
 
+# Generates 
 class CreateDB:
-    def __init__(self,personal_domain,institute_domain,Sections,names):
+    def __init__(self, personal_domain, institute_domain, Sections, names):
         self.personal_domain = personal_domain
         self.institute_domain = institute_domain
         self.names = names
@@ -14,6 +15,7 @@ class CreateDB:
         for i in range(10):
             phNo += str(randint(1, 9))
         return phNo
+
     def genEmails(self, name):
         emailP = ''
         for j in name:
@@ -21,14 +23,15 @@ class CreateDB:
                 emailP += j.lower()
         emailIn = emailP + self.institute_domain
         emailP += self.personal_domain
-        return emailP,emailIn
+        return emailP, emailIn
+
     def genSection(self):
         idx = randint(0, len(self.Sections) - 1)
         section = self.Sections[idx]
         return section
 
     def CreateRecord(self, name):
-        d=dict()
+        d = dict()
         d['Phone No.'] = self.genPhno()
         d['Email Personal'], d['Email Institute'] = self.genEmails(name)
         d['Section'] = self.genSection()
@@ -38,20 +41,17 @@ class CreateDB:
         for name in self.names:
             self.DB[name] = self.CreateRecord(name)
 
-    def SaveDB(self,filename):
+    def SaveDB(self, filename):
         with open(filename, 'w') as fp:
             json.dump(self.DB, fp)
 
 
-
 personal_domain = '@gmail.com'
 institue_domain = '@itu.edu.in'
-Sections = ['Academic','Administration','Director Offc','Hostel']
-names =['Rob Marlo','Chenzi Dobi','Bran Lopez','Courntey Cooper','Martha Stewart','Anglo Mathews']
+Sections = ['Academic', 'Administration', 'Director Office', 'Hostel']
+names = ['Rob Marlo', 'Chenzi Dobi', 'Bran Lopez',
+         'Courntey Cooper', 'Martha Stewart', 'Anglo Mathews']
 
-C_X = CreateDB(personal_domain,institue_domain,Sections,names)
+C_X = CreateDB(personal_domain, institue_domain, Sections, names)
 C_X.Generate()
 C_X.SaveDB('data.json')
-
-
-

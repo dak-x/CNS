@@ -1,0 +1,7 @@
+# This is the configuration file #Specify better documentation here#
+
+[server]
+port = 27012
+
+[database]
+records = ["Phone", "Email Institute", "Email Personal", "Section"]

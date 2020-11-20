@@ -1,1 +1,38 @@
-{"Rob Marlo": {"Phone No.": "2979316655", "Email Personal": "robmarlo@gmail.com", "Email Institute": "robmarlo@itu.edu.in", "Section": "Hostel"}, "Chenzi Dobi": {"Phone No.": "2345131112", "Email Personal": "chenzidobi@gmail.com", "Email Institute": "chenzidobi@itu.edu.in", "Section": "Hostel"}, "Bran Lopez": {"Phone No.": "2316175513", "Email Personal": "branlopez@gmail.com", "Email Institute": "branlopez@itu.edu.in", "Section": "Director Offc"}, "Courntey Cooper": {"Phone No.": "8725386347", "Email Personal": "cournteycooper@gmail.com", "Email Institute": "cournteycooper@itu.edu.in", "Section": "Hostel"}, "Martha Stewart": {"Phone No.": "4325879627", "Email Personal": "marthastewart@gmail.com", "Email Institute": "marthastewart@itu.edu.in", "Section": "Academic"}, "Anglo Mathews": {"Phone No.": "7412293429", "Email Personal": "anglomathews@gmail.com", "Email Institute": "anglomathews@itu.edu.in", "Section": "Hostel"}}
+{
+    "Rob Marlo": {
+        "Phone No.": "9419954841",
+        "Email Personal": "robmarlo@gmail.com",
+        "Email Institute": "robmarlo@itu.edu.in",
+        "Section": "Administration"
+    },
+    "Chenzi Dobi": {
+        "Phone No.": "7433726228",
+        "Email Personal": "chenzidobi@gmail.com",
+        "Email Institute": "chenzidobi@itu.edu.in",
+        "Section": "Hostel"
+    },
+    "Bran Lopez": {
+        "Phone No.": "8585431696",
+        "Email Personal": "branlopez@gmail.com",
+        "Email Institute": "branlopez@itu.edu.in",
+        "Section": "Administration"
+    },
+    "Courntey Cooper": {
+        "Phone No.": "5263128729",
+        "Email Personal": "cournteycooper@gmail.com",
+        "Email Institute": "cournteycooper@itu.edu.in",
+        "Section": "Hostel"
+    },
+    "Martha Stewart": {
+        "Phone No.": "4669695941",
+        "Email Personal": "marthastewart@gmail.com",
+        "Email Institute": "marthastewart@itu.edu.in",
+        "Section": "Academic"
+    },
+    "Anglo Mathews": {
+        "Phone No.": "7937679942",
+        "Email Personal": "anglomathews@gmail.com",
+        "Email Institute": "anglomathews@itu.edu.in",
+        "Section": "Hostel"
+    }
+}
