@@ -1,19 +1,25 @@
+import toml
+
 
 class Server():
     """
-    Represent a CNS Server Model which will do all that is necessary to run a Server Node for the CNS protocol
+    Represent a CNS Server Model which will do all that is necessary to run a Server Node for the CNS protocol.
     """
-    
-    def __init__(self,config) -> None:
+
+    def __init__(self, config) -> None:
         """ 
-        params: config 
+        params: config \n
         Instantiate a server with the config file and loads the database for the queries
         """
-        pass 
+        # get the port from the config file
+        conf = toml.load(config)
+        server_config = conf.get("server")
+        self.port = server_config.get("port")
+
 
     def ignite(self):
         """
-        The Event loop for the Server
+        Start the server
         """
         pass
 
@@ -21,7 +27,7 @@ class Server():
         """
         Destructor for the Server, Properly close connections with the db (if any)
         """
-        pass 
+        pass
 
     def send_msg(self, message):
         """
@@ -33,3 +39,8 @@ class Server():
         """
         Listen the port for a Message Stream, and return that message
         """
+        pass
+
+# For testing purposes
+if __name__ == "__main__":
+    _ = Server("setup.toml")
