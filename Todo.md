@@ -38,6 +38,7 @@
     - decode()
     - Fields
     - get_name()
+    - make_query()
 
   - Answer:
     - encode()
@@ -45,7 +46,6 @@
     - Fields
     - get_answer(Name,Fields) -> Answer
     
-
 # Project Desc.
 
 - Protocol Design:
@@ -77,7 +77,7 @@
 
 
 # Think About it thorougly
-- Record Strcture:
+- Record Structure:
   - Can have max of 7 fields
   - from a Config file (SQL)
   - and make the protocol generic over records
