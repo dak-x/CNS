@@ -1,29 +1,51 @@
-from typing import ByteString
+from typing import ByteString, Iterable
 
 
 class Answer:
 
-    def __init__(self, records, status_code):
+    def __init__(self, records, status_code: int, which_fields: int):
         self.records = records
         self.status_code = status_code
-        self.which_fields = 0   
+        self.which_fields = which_fields
 
-
-    def encode() -> bytearray:
+    def encode(self) -> bytearray:
         """
         Create a byte-array which can be used to send data over a network channel
         """
-        pass 
+        records = "\n".join(self.records) + "\n\r"
+        record_stream = bytes(records, 'utf-8')
+        status_code_stream = self.status_code.to_bytes(
+            1, byteorder='big', signed=False)
+        which_fields_stream = self.which_fields.to_bytes(
+            1, byteorder='big', signed=False)
 
-    @staticmethod    
+        return status_code_stream + which_fields_stream + record_stream
+
+    @staticmethod
     def decode(bytestring: bytearray):
         """
         Create a Answer Object from  given
         byte-array
         """
-        pass
+        status_code = int.from_bytes(bytestring[:1], 'big', signed=False)
+        which_fields = int.from_bytes(bytestring[1:2], 'big', signed=False)
+        records = bytestring[2:].decode('utf-8').split("\n")
+        records.pop() # removing \r
+
+
+        newAnswer = Answer("", 0, 0)
+        newAnswer.status_code = status_code
+        newAnswer.which_fields = which_fields
+        newAnswer.records = records
+
+        return newAnswer
 
 
 # Tests
 if __name__ == "__main__":
+    s = Answer(["These", "are", "records"], 1, 240)
+    s_answer = Answer.decode(s.encode())
+    print(s_answer.status_code, ":", s_answer.which_fields)
+    print(s_answer.records)
+
     pass

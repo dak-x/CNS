@@ -29,9 +29,9 @@ class Query():
         """
 
         newQuery = Query()
+        newQuery.name = byte_stream[1:].decode('utf-8')
         newQuery.which_fields = int.from_bytes(
             byte_stream[:1], byteorder='big')
-        newQuery.name = byte_stream[1:].decode('utf-8')
         return newQuery
 
     def if_cache(self):
@@ -42,13 +42,19 @@ class Query():
 
     @staticmethod
     def make_query(name, fields):
+        # Todo:
         """
         Params: name - key , fields - Iterable:String \n
         Creates a Query Object which pertains to a query which request the fields of the key.
         """
-        pass
+        newQuery = Query()
+        newQuery.name = name
+        newQuery.fields = fields
+
+        return newQuery
 
     def resolve_query(self, db: DB):
+        # Todo:
         """
         Params: db - database object
         Returns a Answer Object which is the result of the query.
