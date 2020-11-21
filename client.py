@@ -1,14 +1,26 @@
 # Just for testing to be implemented as a class and to include config
-
 import socket
 import toml
 
-UDP_IP = "127.0.0.1"
-UDP_PORT = 27012
-MESSAGE = b"Hello, World!"
+class Client:
+    def __init__(self,dest_addr, dest_port, config):
+        conf = toml.load(config)
+        server_config = conf.get("server")
+        self.dest_addr = dest_addr
+        self.dest_port = dest_port
+        self.buffer = server_config.get("buffer")
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.sendto(MESSAGE, (UDP_IP, UDP_PORT))
-data = sock.recv(1024)
+    def send_qry(self, qry_msg):
+        self.sock.sendto(qry_msg,(self.dest_addr, self.dest_port))
 
-print(data)
+    def rcv_msg(self):
+        return self.sock.recv(self.buffer)
+
+
+# Test
+if __name__ == "__main__":
+    c = Client("127.0.0.1",27012,"setup.toml")
+    c.send_qry(str.encode('Hello'))
+    print(c.rcv_msg())
+
