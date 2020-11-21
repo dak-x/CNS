@@ -54,9 +54,9 @@
   - Query & Answer Strcuture
    
 - Header Structure: 
-  - Status (8 bit)
   - Id (8 bit)
-  - No of queries (1-16)
+  - Status (4 bit)
+  - No of queries (1-16) (4 bits)
   - Copy from request to response
   
 - Query Structure:

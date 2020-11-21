@@ -22,7 +22,7 @@ class Answer:
         return status_code_stream + which_fields_stream + record_stream
 
     @staticmethod
-    def decode(bytestring: bytearray):
+    def decode(bytestring: bytes):
         """
         Create a Answer Object from  given
         byte-array
@@ -48,4 +48,3 @@ if __name__ == "__main__":
     print(s_answer.status_code, ":", s_answer.which_fields)
     print(s_answer.records)
 
-    pass
