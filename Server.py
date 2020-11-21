@@ -1,6 +1,7 @@
 import toml
 import socket
 
+
 class Server:
     """
     Represent a CNS Server Model which will do all that is necessary to run a Server Node for the CNS protocol.
@@ -18,17 +19,18 @@ class Server:
         self.host = server_config.get("IP")
         self.buffer = server_config.get("buffer")
 
+# Todo: Complete request processing
     def ignite(self):
         """
         Start the server
         """
-        self.sock = socket.socket(socket.AF_INET,socket.SOCK_DGRAM)
+        self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
         self.sock.bind((self.host, self.port))
-        print('debug',"Server Listening at port",self.port,"Addr",self.host)
+        print('debug', "Server Listening at port",
+              self.port, "Addr", self.host)
         while(True):
             d = self.recv_msg()
             self.send_msg("Recieved")
-
 
     def __del__(self):
         """
@@ -41,14 +43,14 @@ class Server:
         """
         Sends a Message by encoding it a byte-stream and then sending over UDP
         """
-        self.sock.sendto(str.encode(message),self.addr)
+        self.sock.sendto(str.encode(message), self.addr)
 
     def recv_msg(self):
         """
         Listen the port for a Message Stream, and return that message
         """
         self.data, self.addr = self.sock.recvfrom(self.buffer)
-        print('debug',self.data)
+        print('debug', self.data)
         return self.data
 
     def resolveQuery(self, query):

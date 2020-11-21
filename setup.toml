@@ -6,5 +6,5 @@ IP = "127.0.0.1"
 buffer = 1024
 
 [database]
-records = ["Phone", "Email Institute", "Email Personal", "Section"]
+records = ["Phone No.", "Email Institute", "Email Personal", "Section"]
 

@@ -13,7 +13,7 @@ class DB:
         if(record==-1):
             return ans
         for field in fields:
-            ans.append(self.database[name].get(field,None))
+            ans.append(self.database[name].get(field,''))
         return ans
 
 

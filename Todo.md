@@ -1,4 +1,4 @@
-
+Campus Name Server:
 # Project Division:
 - DB. Implementation
   - from_file()
@@ -36,9 +36,9 @@
   - Query:
     - encode()
     - decode()
-    - Fields
-    - get_name()
     - make_query()
+    - resolve_query()
+    - if_cache()
 
   - Answer:
     - encode()

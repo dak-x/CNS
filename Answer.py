@@ -1,14 +1,20 @@
-from typing import ByteString, Iterable
-
 
 class Answer:
-
+    """
+    Represents the Answer Structure conforming to the CNS Protocol
+    """
     def __init__(self, records, status_code: int, which_fields: int):
         self.records = records
         self.status_code = status_code
         self.which_fields = which_fields
 
-    def encode(self) -> bytearray:
+    def __repr__(self) -> str:
+        if self.status_code == 0 :
+            return "Status: Name not Found"
+        else :
+            return "Status: Ok" + "\nFields: " + str (bin(self.which_fields)[2:0].zfill(8)) + ": "+ ", ".join(self.records)
+
+    def encode(self) -> bytes:
         """
         Create a byte-array which can be used to send data over a network channel
         """
@@ -30,7 +36,7 @@ class Answer:
         status_code = int.from_bytes(bytestring[:1], 'big', signed=False)
         which_fields = int.from_bytes(bytestring[1:2], 'big', signed=False)
         records = bytestring[2:].decode('utf-8').split("\n")
-        records.pop() # removing \r
+        records.pop() # removing \r split
 
 
         newAnswer = Answer("", 0, 0)

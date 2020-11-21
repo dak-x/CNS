@@ -1,4 +1,16 @@
-import DB
+from DB import DB
+import toml
+from Answer import Answer
+from copy import copy
+
+FIELDS = toml.load("setup.toml")["database"]["records"]
+FIELDS_IDX = {}
+val = 64
+for x in FIELDS:
+    FIELDS_IDX[x] = val
+    val = val // 2
+
+assert(len(FIELDS) < 8)
 
 
 class Query():
@@ -10,7 +22,9 @@ class Query():
     def __init__(self) -> None:
         self.which_fields = 255
         self.name = "\n"
-        pass
+
+    def __repr__(self) -> str:
+        return self.name + ": " + str(self.which_fields)
 
     def encode(self):
         """
@@ -38,33 +52,62 @@ class Query():
         """
         Checks whether query demands a Result only from the Cache of the DB
         """
-        pass
+        return self.which_fields//128 == 1
 
     @staticmethod
     def make_query(name, fields):
-        # Todo:
         """
         Params: name - key , fields - Iterable:String \n
         Creates a Query Object which pertains to a query which request the fields of the key.
         """
+        which_fields = 0
+        # TODO: Raise error if field not found in config
+        for field in fields:
+            which_fields += FIELDS_IDX.get(field, 0)
         newQuery = Query()
+        newQuery.which_fields = which_fields
         newQuery.name = name
-        newQuery.fields = fields
 
         return newQuery
 
-    def resolve_query(self, db: DB):
+    def get_fields_list(self):
+        """
+        Returns a list of Fields to query in the DB
+        """
+        bin_string = bin(self.which_fields % 128)[2:].zfill(7)
+        fields = []
+        for indicator, field in zip(bin_string, FIELDS):
+            if indicator == '1':
+                fields.append(copy(field))
+
+        return fields
+
+    def resolve_query(self, db: DB) -> Answer:
         # Todo:
         """
-        Params: db - database object
+        Params: db - database object\n
         Returns a Answer Object which is the result of the query.
         """
+        answer_fields = db.fetch_fields(self.name, self.get_fields_list())
+        if(answer_fields == -1):
+            status_code = 0
+            answer_fields = []
+        else:
+            status_code = 1
 
-        pass
+        newAnswer = Answer(answer_fields, status_code, self.which_fields)
+
+        return newAnswer
 
 
 # Test
 if __name__ == "__main__":
-    s = Query().encode()
-    print(int.from_bytes(s[:1], 'big'), s[1:].decode('utf-8'))
+    db = DB("data.json")
+    temp = Query().make_query("Rob Marlo", ["Phone No.", "Email Personal"])
+    # s = Query().encode()
+    # print(Query())
+    # print(int.from_bytes(s[:1], 'big'), s[1:].decode('utf-8'))
+    # print(FIELDS_IDX)
+    print(temp.get_fields_list())
+    print(temp.resolve_query(db))
     pass
