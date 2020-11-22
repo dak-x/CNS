@@ -3,7 +3,6 @@ from Answer import Answer
 from Query import Query
 from Header import Header
 
-
 class Message():
     """
     Represent the structure of a CNS Message
@@ -103,13 +102,13 @@ class Message():
         Returns the Meesage Object which contains the answer for all the Queries in the Message from the database
         """
         if(not self.is_Ok()):
-            print('debug4')
             return self
             
         answers = [query.resolve_query(db) for query in self.queries]
 
         answer_message = Message()
         answer_message.header = self.get_header()
+        answer_message.header.Status ^= 8
         answer_message.answers = answers
 
         return answer_message
