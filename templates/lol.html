@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+      
+  <style type="text/css">
+      div{
+          padding:8px;
+      }
+
+      .button {
+  background-color: #4CAF50; /* Green */
+  border: none;
+  color: white;
+  padding: 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+
+  </style>
+  
+  </head>
+  
+  <body>
+
+  
+  <script type="text/javascript">
+  
+  $(document).ready(function(){
+  
+      var counter = 2;
+          
+      $("#addButton").click(function () {
+                     
+          
+      var newTextBoxDiv = $(document.createElement('div'))
+           .attr("id", 'TextBoxDiv' + counter);
+                  
+      newTextBoxDiv.after().html('<input type="text" placeholder="Enter your name" class="input100" name="textbox' + counter + 
+            '" id="textbox' + counter + ' value="" >');
+              
+      newTextBoxDiv.appendTo("#form");
+
+      document.getElementById("number").value = counter
+                  
+      counter++;
+       });
+  
+       $("#removeButton").click(function () {
+      if(counter==1){
+            alert("No more textbox to remove");
+            return false;
+         }   
+          
+      counter--;
+              
+          $("#TextBoxDiv" + counter).remove();
+
+          document.getElementById("number").value = counter
+              
+       });
+          
+       $("#getButtonValue").click(function () {
+          
+      var msg = '';
+      for(i=1; i<counter; i++){
+          msg += "\n Textbox #" + i + " : " + $('#textbox' + i).val();
+      }
+           alert(msg);
+       });
+    });
+  </script>
+
+
+	<title>Query Records</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">	
+	<link rel="stylesheet" type="text/css" href="static/util.css">
+	<link rel="stylesheet" type="text/css" href="static/main.css">
+<!--===============================================================================================-->
+</head>
+<body>
+
+
+	<div class="container-contact100">
+		<div class="wrap-contact100" style="width: 50%;height:50%;">
+			<form class="contact100-form" id="form" action="http://localhost:5000/result" method = "POST"> 
+				<span class="contact100-form-title">
+					Query Records
+        </span>
+            <input class="button" type = "submit" value = "submit" id="submit" style="margin-left:31%; width:27%;"/><br>
+						<input type='button' class="button" value='Add Button' id='addButton' style="margin-left:10%;">
+            <input type='button' class="button" value='Remove Button' id='removeButton'>
+            <input type='button' class="button" value='Get TextBox Value' id='getButtonValue'><br><br>
+
+            <input type="checkbox" name="interest" value="phone_number">
+            <label for="phone_number">Phone Number</label>
+
+            <input type="checkbox" name="interest" value="email_personal">
+            <label for="email_personal">Email Personal</label>
+
+            <input type="checkbox" name="interest" value="email_institute">
+            <label for="email_institute">Email Institute</label>
+
+            <input type="checkbox" name="interest" value="section">
+            <label for="section">Section</label>
+
+            <br><br>
+
+            <input class="input100"type="hidden" name="number" value=1 id="number"> <br>
+            <input class="input100" type="text" id='textbox1' name='textbox1' placeholder="Enter your name"><br>
+          
+			</form>
+		</div>
+	</div>
+
+</body>
+</html>
+
