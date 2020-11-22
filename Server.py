@@ -61,16 +61,14 @@ class Server:
         Listen the port for a Message Stream, and return that message
         """
         data, self.addr = self.sock.recvfrom(self.buffer)
-        print('debug', data)
         self.msg = Message.decode(data)
-        print('debug2',self.msg)
         return self.msg
 
     def resolveMessage(self):
         """
         Use functions of query to construct answer and return it
         """
-        if (self.msg.is_Ok()):
+        if (not self.msg.is_Ok()):
             self.send_msg(self.msg)
         else:
             resolved_msg = self.msg.resolve_queries(self.db)

@@ -2,18 +2,27 @@
 import socket
 import toml
 from Message import Message
+from Query import Query
 
 class Client:
-    def __init__(self,dest_addr, dest_port, config):
+    def __init__(self,config):
         conf = toml.load(config)
         server_config = conf.get("server")
-        self.dest_addr = dest_addr
-        self.dest_port = dest_port
+        self.dest_addr = server_config.get("IP")
+        self.dest_port = server_config.get("port")
         self.buffer = server_config.get("buffer")
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        self.msg = Message()
     
-    def send_qry(self, qry_msg):
-        self.sock.sendto(qry_msg,(self.dest_addr, self.dest_port))
+    def send_qry(self):
+        self.sock.sendto(self.msg.encode(),(self.dest_addr, self.dest_port))
+
+    def make_qrymsg(self, qrylst):
+        queries = []
+        for (name, field_list) in qrylst:
+            q = Query.make_query(name,field_list)
+            queries.append(q)
+        self.msg.add_queries(queries)
 
     def rcv_msg(self):
         return self.sock.recv(self.buffer)
@@ -21,10 +30,12 @@ class Client:
 
 # Test
 if __name__ == "__main__":
-    c = Client("127.0.0.1",27012,"setup.toml")
-    c.send_qry(bytes('sa','utf-8'))
+    test_list = [["Rob Marlo",["Section", "Email Institute"]], ["Chenzi Dobi",["Phone No.", "Section"]], ["Bran Lopez",["Email Personal", "Email Institute"]]]
+    c = Client("setup.toml")
+    c.make_qrymsg(test_list)
+    c.send_qry()
     d = c.rcv_msg()
     d = Message.decode(d)
-    print(d)
-    print(d.is_Ok())
+    for answer in d.answers:
+        print(answer)
 
