@@ -1,7 +1,6 @@
 import toml
 import socket
 
-
 class Server:
     """
     Represent a CNS Server Model which will do all that is necessary to run a Server Node for the CNS protocol.

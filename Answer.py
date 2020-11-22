@@ -12,7 +12,7 @@ class Answer:
         if self.status_code == 0 :
             return "Status: Name not Found"
         else :
-            return "Status: Ok" + "\nFields: " + str (bin(self.which_fields)[2:0].zfill(8)) + ": "+ ", ".join(self.records)
+            return "Status: Ok" + "\nFields: " + str (bin(self.which_fields)[2:].zfill(8)) + ": "+ ", ".join(self.records)
 
     def encode(self) -> bytes:
         """
@@ -38,7 +38,6 @@ class Answer:
         records = bytestring[2:].decode('utf-8').split("\n")
         records.pop() # removing \r split
 
-
         newAnswer = Answer("", 0, 0)
         newAnswer.status_code = status_code
         newAnswer.which_fields = which_fields
@@ -50,7 +49,8 @@ class Answer:
 # Tests
 if __name__ == "__main__":
     s = Answer(["These", "are", "records"], 1, 240)
-    s_answer = Answer.decode(s.encode())
-    print(s_answer.status_code, ":", s_answer.which_fields)
-    print(s_answer.records)
+    print(s)
+    # s_answer = Answer.decode(s.encode())
+    # print(s_answer.status_code, ":", s_answer.which_fields)
+    # print(s_answer.records)
 

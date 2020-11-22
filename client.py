@@ -10,7 +10,7 @@ class Client:
         self.dest_port = dest_port
         self.buffer = server_config.get("buffer")
         self.sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-
+    
     def send_qry(self, qry_msg):
         self.sock.sendto(qry_msg,(self.dest_addr, self.dest_port))
 

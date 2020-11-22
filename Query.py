@@ -21,10 +21,10 @@ class Query():
 
     def __init__(self) -> None:
         self.which_fields = 255
-        self.name = "\n"
+        self.name = "Test"
 
     def __repr__(self) -> str:
-        return self.name + ": " + str(self.which_fields)
+        return str(self.which_fields) + ": " + self.name
 
     def encode(self):
         """
@@ -108,6 +108,7 @@ if __name__ == "__main__":
     # print(Query())
     # print(int.from_bytes(s[:1], 'big'), s[1:].decode('utf-8'))
     # print(FIELDS_IDX)
+    print(temp)
     print(temp.get_fields_list())
     print(temp.resolve_query(db))
     pass

@@ -55,7 +55,10 @@ Campus Name Server:
    
 - Header Structure: 
   - Id (8 bit)
-  - Status (4 bit)
+  - Status (4 bit) 
+    - 1st bit - whether Answer or Query 
+    - 2nd bit - Format - Ok or Ill-Formed
+    - 3rd and 4th bit for futute expansion
   - No of queries (1-16) (4 bits)
   - Copy from request to response
   

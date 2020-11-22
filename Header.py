@@ -6,10 +6,10 @@ class Header():
     Represents a CNS-Message header which is pre-pended on every request sent.
     """
 
-    def __init__(self, nqueries):
+    def __init__(self):
         self.Id = random.randint(0, 255)
-        self.Status = 4
-        self.Nqueries = nqueries
+        self.Status = 8
+        self.Nqueries = 0
 
     def __repr__(self) -> str:
         return "ID: " + str(self.Id) + "\n" + "Status: " + str(self.Status) + " Nqueries: " + str(self.Nqueries)
@@ -29,7 +29,7 @@ class Header():
         """
         s = int.from_bytes(bytestream[:2], 'big', signed=False)
 
-        newHeader = Header(0)
+        newHeader = Header()
         newHeader.Id = s//256
         newHeader.Status = (s % 256)//16
         newHeader.Nqueries = s % 16
@@ -39,7 +39,7 @@ class Header():
 
 # Test
 if __name__ == "__main__":
-    h = Header(12)
+    h = Header()
     h_encoded = h.encode()
     print(h_encoded)
     print(Header.decode(h_encoded))
