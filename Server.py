@@ -1,5 +1,12 @@
 import toml
 import socket
+from Message import Message
+from DB import DB
+import logging
+
+logging.basicConfig(filename="requests.log", 
+                    format='%(asctime)s %(message)s', 
+                    filemode='w') 
 
 class Server:
     """
@@ -17,6 +24,8 @@ class Server:
         self.port = server_config.get("port")
         self.host = server_config.get("IP")
         self.buffer = server_config.get("buffer")
+        self.db = DB("data.json")
+        self.log = logging.Logger()
 
 # Todo: Complete request processing
     def ignite(self):
@@ -28,7 +37,8 @@ class Server:
         print('debug', "Server Listening at port",
               self.port, "Addr", self.host)
         while(True):
-            d = self.recv_msg()
+            request = self.recv_msg()
+            self.log.info(repr(request))
             self.send_msg("Recieved")
 
     def __del__(self):
@@ -38,24 +48,31 @@ class Server:
         self.sock.close()
         pass
 
-    def send_msg(self, message):
+    def send_msg(self, message:Message):
         """
         Sends a Message by encoding it a byte-stream and then sending over UDP
         """
-        self.sock.sendto(str.encode(message), self.addr)
+        self.sock.sendto(message.encode(), self.addr)
 
     def recv_msg(self):
         """
         Listen the port for a Message Stream, and return that message
         """
-        self.data, self.addr = self.sock.recvfrom(self.buffer)
+        data, self.addr = self.sock.recvfrom(self.buffer)
         print('debug', self.data)
-        return self.data
+        self.msg = Message.decode(data)
+        return self.msg
 
-    def resolveQuery(self, query):
+    def resolveMessage(self):
         """
         Use functions of query to construct answer and return it
         """
+        if (self.msg.is_Ok()):
+            self.send_msg(self.msg)
+        else:
+            resolved_msg = self.msg.resolve_queries(self.db)
+            self.send_msg(resolved_msg)
+
 
 
 # For testing purposes

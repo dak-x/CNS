@@ -33,34 +33,45 @@ class Message():
         encd_answers = [answer.encode() for answer in self.answers]
         encoded_answers = b''.join(encd_answers)
 
-        if(len(self.queries) > 0):
-            return encoded_header + encoded_queries
-        else:
+        if(len(self.answers) > 0):
             return encoded_header + encoded_answers
+        else:
+            return encoded_header + encoded_queries
 
     @staticmethod
     def decode(byte_stream: bytes):
-        # Todo: Add error handling for ill-formed requests
+        # DONE:  Todo: Add error handling for ill-formed requests
         """
         Creates a Message Object from a given byte-array received from the network
         """
-        header_stream, rest = byte_stream[:2], byte_stream[2:]
-        header = Header.decode(header_stream)
-        message = Message()
-        message.header = header
+        try:
+            header_stream, rest = byte_stream[:2], byte_stream[2:]
+            header = Header.decode(header_stream)
+            message = Message()
+            message.header = header
 
-        # Query Message
-        if(header.Status >= 8):
-            # queries = list(map(Query.decode, rest.splitlines()))
-            queries = [Query.decode(q) for q in rest.splitlines()]
-            message.queries = queries
-        # Answer Message
-        else:
-            answers = [Answer.decode(a) for a in rest.split(b'\r')[:-1]]
-            message.answers = answers
+            # Query Message
+            if(header.Status >= 8):
+                # queries = list(map(Query.decode, rest.splitlines()))
+                queries = [Query.decode(q) for q in rest.splitlines()]
+                message.queries = queries
+            # Answer Message
+            else:
+                answers = [Answer.decode(a) for a in rest.split(b'\r')[:-1]]
+                message.answers = answers
 
-        # How to distinguish between answer and query msg?
-        return message
+            # How to distinguish between answer and query msg?
+            return message
+        except:
+            msg = Message()
+            msg.header.Status = 4
+            return msg
+
+    def is_Ok(self):
+        """
+        Returns whether msg is formed correctly
+        """
+        return ((self.header.Status // 4) % 2) == 0
 
     def add_header(self, header):
         """
@@ -86,6 +97,9 @@ class Message():
         """
         Returns the Meesage Object which contains the answer for all the Queries in the Message from the database
         """
+        if(not self.is_Ok()):
+            return self
+            
         answers = [query.resolve_query(db) for query in self.queries]
 
         answer_message = Message()
