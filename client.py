@@ -1,6 +1,7 @@
 # Just for testing to be implemented as a class and to include config
 import socket
 import toml
+from Message import Message
 
 class Client:
     def __init__(self,dest_addr, dest_port, config):
@@ -21,6 +22,9 @@ class Client:
 # Test
 if __name__ == "__main__":
     c = Client("127.0.0.1",27012,"setup.toml")
-    c.send_qry(str.encode('Hello'))
-    print(c.rcv_msg())
+    c.send_qry(bytes('sa','utf-8'))
+    d = c.rcv_msg()
+    d = Message.decode(d)
+    print(d)
+    print(d.is_Ok())
 

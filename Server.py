@@ -61,8 +61,9 @@ class Server:
         Listen the port for a Message Stream, and return that message
         """
         data, self.addr = self.sock.recvfrom(self.buffer)
-        print('debug', self.data)
+        print('debug', data)
         self.msg = Message.decode(data)
+        print('debug2',self.msg)
         return self.msg
 
     def resolveMessage(self):

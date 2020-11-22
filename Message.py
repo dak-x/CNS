@@ -44,9 +44,9 @@ class Message():
         """
         Creates a Message Object from a given byte-array received from the network
         """
+        header_stream, rest = byte_stream[:2], byte_stream[2:]
+        header = Header.decode(header_stream)
         try:
-            header_stream, rest = byte_stream[:2], byte_stream[2:]
-            header = Header.decode(header_stream)
             message = Message()
             message.header = header
 
@@ -54,10 +54,14 @@ class Message():
             if(header.Status >= 8):
                 # queries = list(map(Query.decode, rest.splitlines()))
                 queries = [Query.decode(q) for q in rest.splitlines()]
+                if(len(queries)==0):
+                    raise Exception
                 message.queries = queries
             # Answer Message
             else:
                 answers = [Answer.decode(a) for a in rest.split(b'\r')[:-1]]
+                if (len(answers) == 0):
+                    raise Exception
                 message.answers = answers
 
             # How to distinguish between answer and query msg?
@@ -65,6 +69,7 @@ class Message():
         except:
             msg = Message()
             msg.header.Status = 4
+            msg.header.Id = header.Id
             return msg
 
     def is_Ok(self):
@@ -98,6 +103,7 @@ class Message():
         Returns the Meesage Object which contains the answer for all the Queries in the Message from the database
         """
         if(not self.is_Ok()):
+            print('debug4')
             return self
             
         answers = [query.resolve_query(db) for query in self.queries]
