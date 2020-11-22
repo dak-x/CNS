@@ -11,14 +11,11 @@ def result():
       result = request.form
       number=int(result['number'])
       names=[]
-      required_fields=result.getlist('interest')
-      # phone_number_bool=bool(result['phone_number']=='on')
-      # email_personal_bool=bool(result['email_personal']=='on')
-      # email_institute_bool=bool(result['email_institute']=='on')
-      # section_bool=bool(result['section']=='on')
-
+      required_fields=[]
+      
       for i in range(1,number+1):
          names.append(result['textbox'+str(i)])
+         required_fields.append(result.getlist('interest'+str(i)))
          
       return render_template("result.html",result = result,names=names,required_fields=required_fields)
 
