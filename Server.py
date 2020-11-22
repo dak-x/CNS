@@ -39,7 +39,8 @@ class Server:
         while(True):
             request = self.recv_msg()
             self.log.info(repr(request))
-            self.send_msg("Recieved")
+            self.resolveMessage()
+            # self.send_msg("Recieved")
 
     def __del__(self):
         """
