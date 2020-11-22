@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+   <body>
+      <table>
+         The response obtained is <br> <br>
+         {% for key, value in result.items() %}
+            <tr>
+               <th> {{ key }} </th>
+               <td> {{ value }} </td>
+            </tr>
+         {% endfor %}
+      </table>
+      <br>
+      And the array of names is :
+      <p>{% for name in names %}</p>
+      <p>{{name}}</p>
+      {% endfor %}
+      <br>
+      The array of required fields is :
+      <p>{% for f in required_fields %}</p>
+      <p>{{f}}</p>
+      {% endfor %}
+ 
+
+
+   </body>
+</html>
