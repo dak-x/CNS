@@ -25,7 +25,8 @@ class Server:
         self.host = server_config.get("IP")
         self.buffer = server_config.get("buffer")
         self.db = DB("data.json")
-        self.log = logging.Logger()
+        self.log = logging.getLogger()
+        self.log.setLevel(0)
 
 # Todo: Complete request processing
     def ignite(self):
