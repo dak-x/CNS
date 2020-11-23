@@ -18,7 +18,9 @@
       <br>
       The array of required fields is :
       <p>{% for f in required_fields %}</p>
-      <p>{{f}}</p>
+         {% for key in f %}
+            <p><b>{{ key }}</b> : {{ f[key] }}</p>
+         {% endfor %}
       {% endfor %}
  
 

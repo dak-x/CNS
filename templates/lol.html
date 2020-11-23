@@ -44,8 +44,20 @@
       var newTextBoxDiv = $(document.createElement('div'))
            .attr("id", 'TextBoxDiv' + counter);
                   
-      newTextBoxDiv.after().html('<input type="text" placeholder="Enter your name" class="input100" name="textbox' + counter + 
-            '" id="textbox' + counter + ' value="" >');
+      newTextBoxDiv.after().html('<input type="text" placeholder="Enter your name" class="input100" name="textbox' 
+            + counter +'" id="textbox' 
+            + counter + ' value="" ><br><input type="checkbox" name="interest'
+            +counter +'" value="phone_number"><label for="phone_number">Phone Number</label><input type="checkbox" name="interest'
+            +counter +'" value="email_personal"><label for="email_personal">Email Personal</label><input type="checkbox" name="interest'
+            +counter +'" value="email_institute"><label for="email_institute">Email Institute</label><input type="checkbox" name="interest'
+            +counter +'" value="section"><label for="section">Section</label><br>');
+
+
+
+      
+            
+
+
               
       newTextBoxDiv.appendTo("#form");
 
@@ -68,14 +80,6 @@
               
        });
           
-       $("#getButtonValue").click(function () {
-          
-      var msg = '';
-      for(i=1; i<counter; i++){
-          msg += "\n Textbox #" + i + " : " + $('#textbox' + i).val();
-      }
-           alert(msg);
-       });
     });
   </script>
 
@@ -96,27 +100,28 @@
 				<span class="contact100-form-title">
 					Query Records
         </span>
-            <input class="button" type = "submit" value = "submit" id="submit" style="margin-left:31%; width:27%;"/><br>
-						<input type='button' class="button" value='Add Button' id='addButton' style="margin-left:10%;">
-            <input type='button' class="button" value='Remove Button' id='removeButton'>
-            <input type='button' class="button" value='Get TextBox Value' id='getButtonValue'><br><br>
 
-            <input type="checkbox" name="interest" value="phone_number">
+        <input class="input100"type="hidden" name="number" value=1 id="number"> <br>
+        
+            <input class="button" type = "submit" value = "submit" id="submit" style="margin-left:36%; width:27%;"/><br>
+						<input type='button' class="button" value='Add Name' id='addButton' style="margin-left:25%; width:20%;">
+            <input type='button' class="button" value='Remove Name' id='removeButton'>
+            
+            <br><br>
+            <input class="input100" type="text" id='textbox1' name='textbox1' placeholder="Enter your name"><br>
+            <input type="checkbox" name="interest1" value="phone_number">
             <label for="phone_number">Phone Number</label>
 
-            <input type="checkbox" name="interest" value="email_personal">
+            <input type="checkbox" name="interest1" value="email_personal">
             <label for="email_personal">Email Personal</label>
 
-            <input type="checkbox" name="interest" value="email_institute">
+            <input type="checkbox" name="interest1" value="email_institute">
             <label for="email_institute">Email Institute</label>
 
-            <input type="checkbox" name="interest" value="section">
-            <label for="section">Section</label>
+            <input type="checkbox" name="interest1" value="section">
+            <label for="section">Section</label><br>
 
-            <br><br>
 
-            <input class="input100"type="hidden" name="number" value=1 id="number"> <br>
-            <input class="input100" type="text" id='textbox1' name='textbox1' placeholder="Enter your name"><br>
           
 			</form>
 		</div>
