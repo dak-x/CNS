@@ -1,0 +1,10 @@
+# This is the configuration file #Specify better documentation here#
+
+[server]
+port = 27012
+IP = "127.0.0.1"
+buffer = 1024
+
+[database]
+records = ["Phone No.", "Email Institute", "Email Personal", "Section"]
+
