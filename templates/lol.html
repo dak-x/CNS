@@ -4,14 +4,17 @@
 
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-      
+
+  <!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
   <style type="text/css">
-      div{
+
+div{
           padding:8px;
       }
 
-      .button {
-  background-color: #4CAF50; /* Green */
+  .button {
   border: none;
   color: white;
   padding: 20px;
@@ -24,6 +27,10 @@
   border-radius: 4px;
 }
 
+.plus{background-color: #4CAF50; /* Green */}
+.minus{background-color: red;}
+
+body{width: 100%;line-height:1.6;font-size:18px;color:#444;background-image:url('static/bg1.jpg')!important;}
 
   </style>
   
@@ -44,13 +51,13 @@
       var newTextBoxDiv = $(document.createElement('div'))
            .attr("id", 'TextBoxDiv' + counter);
                   
-      newTextBoxDiv.after().html('<input type="text" placeholder="Enter your name" class="input100" name="textbox' 
+      newTextBoxDiv.after().html('<input class="input100" type="text" placeholder="Enter your name" name="textbox' 
             + counter +'" id="textbox' 
-            + counter + ' value="" ><br><input type="checkbox" name="interest'
+            + counter +'" ><br><input type="checkbox" name="interest'
             +counter +'" value="phone_number"><label for="phone_number">Phone Number</label><input type="checkbox" name="interest'
             +counter +'" value="email_personal"><label for="email_personal">Email Personal</label><input type="checkbox" name="interest'
             +counter +'" value="email_institute"><label for="email_institute">Email Institute</label><input type="checkbox" name="interest'
-            +counter +'" value="section"><label for="section">Section</label><br>');
+            +counter +'" value="section"><label for="section">Section</label><br><br>');
 
 
 
@@ -94,20 +101,19 @@
 <body>
 
 
-	<div class="container-contact100">
-		<div class="wrap-contact100" style="width: 50%;height:50%;">
-			<form class="contact100-form" id="form" action="http://localhost:5000/result" method = "POST"> 
+	<div class="container-contact100" style="background-image:url('static/bg1.jpg')!important;">
+		<div class="wrap-contact100" style="width: 50%;height:50%;background-color: transparent!important;">
+      <form class="contact100-form" id="form" action="http://localhost:5000/result" method = "POST"> 
+        <input class="input100"type="hidden" name="number" value=1 id="number">
 				<span class="contact100-form-title">
 					Query Records
-        </span>
-
-        <input class="input100"type="hidden" name="number" value=1 id="number"> <br>
-        
-            <input class="button" type = "submit" value = "submit" id="submit" style="margin-left:36%; width:27%;"/><br>
-						<input type='button' class="button" value='Add Name' id='addButton' style="margin-left:25%; width:20%;">
-            <input type='button' class="button" value='Remove Name' id='removeButton'>
+        </span>        
+            <input class="button plus fa fa-paper-plane" type = "submit" value = "&#xf1d8 Submit" id="submit" style="margin-left:20%;">
+						<input type='button' class="button plus fa fa-plus" value='&#xf067 Add' id='addButton'>
+            <input type='button' class="button minus fa fa-minus" value='&#xf068 Remove' id='removeButton'>
             
             <br><br>
+            <div id="TextBoxDiv1" style="width:100%;">
             <input class="input100" type="text" id='textbox1' name='textbox1' placeholder="Enter your name"><br>
             <input type="checkbox" name="interest1" value="phone_number">
             <label for="phone_number">Phone Number</label>
@@ -120,7 +126,7 @@
 
             <input type="checkbox" name="interest1" value="section">
             <label for="section">Section</label><br>
-
+            </div>
 
           
 			</form>

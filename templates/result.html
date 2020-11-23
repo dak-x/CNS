@@ -1,29 +1,61 @@
 <!doctype html>
 <html>
-   <body>
+
+<head>
+<style>
+      
+body{width: 100%;line-height:1.6;font-size:18px;color:whitesmoke;
+
+/* background: #a64bf4;
+background: -webkit-linear-gradient(45deg, #00dbde, #fc00ff);
+background: -o-linear-gradient(45deg, #00dbde, #353035);
+background: -moz-linear-gradient(45deg, #00dbde, #fc00ff);
+background: linear-gradient(45deg, #00dbde, #fc00ff); */
+background-image:url('static/bg2.jpg');
+}
+
+.btn {
+  background-color: RoyalBlue;
+  border: none;
+  color: white;
+  padding: 12px 30px;
+  cursor: pointer;
+  font-size: 20px;
+}
+.btn:hover {
+  background-color:#0252d4;
+}
+</style>
+
+<!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+</head>
+
+   <body style="background-image:url('static/bg2.jpg');">
+      
+      <div style="right:10%;position:absolute;margin-top:0%;font-size:20px; widows: 30px;">
+         <a href="/download"><button class="btn"><i class="fa fa-download"></i> Download</button></a>
+        </div>
+      <div style="margin-left:3%;margin-top:3%;">
+      {% for name in names %}
+
+      <h2>{{name}}</h2>
       <table>
-         The response obtained is <br> <br>
-         {% for key, value in result.items() %}
-            <tr>
-               <th> {{ key }} </th>
-               <td> {{ value }} </td>
-            </tr>
-         {% endfor %}
-      </table>
-      <br>
-      And the array of names is :
-      <p>{% for name in names %}</p>
-      <p>{{name}}</p>
-      {% endfor %}
-      <br>
-      The array of required fields is :
-      <p>{% for f in required_fields %}</p>
+      {% for f in output %}
          {% for key in f %}
-            <p><b>{{ key }}</b> : {{ f[key] }}</p>
+         <tr>
+            <td style="padding: 3px;">{{ key }}</td> 
+            <td style="padding: 3px;">{{ f[key] }}</td>
+         </tr>
          {% endfor %}
       {% endfor %}
- 
+      </table>
+      <br><br>
+      {% endfor %}
+   
+   </div>
 
-
+    
    </body>
 </html>
