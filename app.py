@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 from client import Client
 from Message import Message
 from Answer import Answer
+
 import toml
 conf = toml.load("setup.toml")
 server_config = conf.get("database")
@@ -61,7 +62,7 @@ def result():
       d = Message.decode(d)
 
       p_msg = Process_msg(d, required_fields)
-      return render_template("result.html",result = result,names=names,required_fields=p_msg)
+      return render_template("result.html",names=names,output=p_msg)
 
 if __name__ == '__main__':
    app.run(debug = True)
