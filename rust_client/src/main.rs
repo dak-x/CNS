@@ -1,15 +1,13 @@
 use rust_client::*;
-use std::collections::HashMap;
 use std::net::*;
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let requests: HashMap<u16, &str> = HashMap::new();
     let mut addr = SV_ADDR.to_string();
     addr.pop();
     let addr = format! {"{}:{}",&addr[1..],SV_PORT.to_string()};
 
     println! {"{}",addr};
-    let mut sock = UdpSocket::bind("0.0.0.0:0")?;
+    let sock = UdpSocket::bind("0.0.0.0:0")?;
     
     let msg = make_message(
         "dqiku uwbkqj f",
@@ -23,7 +21,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     sock.send_to(msg.as_slice(), addr)?;
 
     let (bytes, _) = sock.recv_from(&mut buf)?;
-    let mut buf = &mut buf[..bytes];
+    let buf = &mut buf[..bytes];
 
     let recv_message: Message = CnsSend::decode(buf);
     println! {"{:?}",recv_message};

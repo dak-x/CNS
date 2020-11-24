@@ -1,6 +1,6 @@
 #[macro_use]
 extern crate lazy_static;
-use std::{collections::HashMap, fs, net, str};
+use std::{collections::HashMap, fs, str};
 use toml::{self, Value};
 
 /// A Trait which represents the encoding and decoding behaviour for the all the data types used in the CNS protocol
@@ -11,7 +11,7 @@ pub trait CnsSend {
 
 // Declaration for Constant Fields taken from the config file i.e. setup.toml
 lazy_static! {
-    pub static ref Config: Value = {
+    pub static ref CONFIG: Value = {
         let config_str =
             fs::read_to_string("./setup.toml").expect("Cound not Open config file at ./setup.toml");
         let config = config_str
@@ -19,10 +19,10 @@ lazy_static! {
             .expect("Error reading setup file");
         config
     };
-    pub static ref SV_ADDR: String = format! {"{}",Config["server"]["IP"]};
-    pub static ref SV_PORT: String = format! {"{}",Config["server"]["port"]};
+    pub static ref SV_ADDR: String = format! {"{}",CONFIG["server"]["IP"]};
+    pub static ref SV_PORT: String = format! {"{}",CONFIG["server"]["port"]};
     pub static ref FIELDS: Vec<String> = {
-        let records = &Config["database"]["records"];
+        let records = &CONFIG["database"]["records"];
         let mut fields = Vec::new();
         match records {
             Value::Array(records_arr) => {
@@ -131,7 +131,7 @@ impl Message {
     }
 
     /// Check is the message received is Well-Formed
-    pub fn is_Ok(&self) -> bool {
+    pub fn is_ok(&self) -> bool {
         return (self.header.status / 4) % 2 == 0;
     }
 
@@ -343,7 +343,7 @@ fn test_message_answer() {
 fn network_test() {
     use std::net::UdpSocket;
     let localhost = "127.0.0.1:27015";
-    let mut sock = UdpSocket::bind(localhost).expect("Couldn't open socket at");
+    let sock = UdpSocket::bind(localhost).expect("Couldn't open socket at");
     //
     let buf = "Hello From this Side".to_string().into_bytes();
     sock.send_to(&buf[..], "127.0.0.1:27013").unwrap();
