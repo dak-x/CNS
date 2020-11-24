@@ -50,7 +50,8 @@ personal_domain = '@gmail.com'
 institue_domain = '@itu.edu.in'
 Sections = ['Academic', 'Administration', 'Director Office', 'Hostel']
 names = ['Rob Marlo', 'Chenzi Dobi', 'Bran Lopez',
-         'Courntey Cooper', 'Martha Stewart', 'Anglo Mathews']
+         'Courntey Cooper', 'Martha Stewart', 'Anglo Mathews',
+         'Mathew Hayden','Levy Bonstad','Ashton Agar','Michael Meyers']
 
 C_X = CreateDB(personal_domain, institue_domain, Sections, names)
 C_X.Generate()
