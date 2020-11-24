@@ -38,17 +38,15 @@ background-image:url('static/bg2.jpg');
          <a href="/download"><button class="btn"><i class="fa fa-download"></i> Download</button></a>
         </div>
       <div style="margin-left:3%;margin-top:3%;">
-      {% for name in names %}
+      {% for (name,diction) in output.items() %}
 
       <h2>{{name}}</h2>
       <table>
-      {% for f in output %}
-         {% for key in f %}
+      {% for f in diction %}
          <tr>
-            <td style="padding: 3px;">{{ key }}</td> 
-            <td style="padding: 3px;">{{ f[key] }}</td>
+            <td style="padding: 3px;">{{ f }}</td> 
+            <td style="padding: 3px;">{{ diction[f] }}</td>
          </tr>
-         {% endfor %}
       {% endfor %}
       </table>
       <br><br>

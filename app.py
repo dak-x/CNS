@@ -1,12 +1,14 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request,Response
 from client import Client
 from Message import Message
 from Answer import Answer
+import pandas as pd
 
 import toml
 conf = toml.load("setup.toml")
 server_config = conf.get("database")
 records = server_config.get("records")
+
 # ---------------------------------------------
 
 Dict_record = {"phone_number":records[0],
@@ -18,6 +20,7 @@ Dict_record = {"phone_number":records[0],
 
 c = Client("setup.toml")
 app = Flask(__name__)
+df=pd.DataFrame()
 
 
 def Process_msg(msg: Message, required_fields):
@@ -51,18 +54,31 @@ def result():
       for i in range(1,number+1):
          names.append(result['textbox'+str(i)])
          required_fields.append(result.getlist('interest'+str(i)))
-
+      print(names,required_fields)
       for i in range(len(required_fields)):
         required_fields[i] = list(map(Dict_record.get,required_fields[i]))
       qry_lst = [[names[i],required_fields[i]] for i in range(number)]
-
       c.make_qrymsg(qry_lst)
       c.send_qry()
       d = c.rcv_msg()
       d = Message.decode(d)
 
       p_msg = Process_msg(d, required_fields)
-      return render_template("result.html",names=names,output=p_msg)
+
+      global df
+      df=pd.DataFrame(p_msg,index=names)
+      return render_template("result.html",output=dict(zip(names,p_msg)))
+
+@app.route('/download')
+def download():
+    global df
+    #print(df.index)
+    return Response(
+       df.to_csv(),
+       mimetype="text/csv",
+       headers={"Content-disposition":
+       "attachment; filename=filename.csv"})
+
 
 if __name__ == '__main__':
    app.run(debug = True)
