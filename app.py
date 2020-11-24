@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request,Response
+from flask import Flask, render_template, request,Response, flash
 from client import Client
 from Message import Message
 from Answer import Answer
@@ -20,6 +20,8 @@ Dict_record = {"phone_number":records[0],
 
 c = Client("setup.toml")
 app = Flask(__name__)
+app.config['SECRET_KEY'] = '21a00ee024ebe902cf1848208f5c1a29'
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 1
 df=pd.DataFrame()
 
 
@@ -34,7 +36,7 @@ def Process_msg(msg: Message, required_fields):
             field_name = required_fields[j]
             d1 = [[field_name[i],ret_records[i]] for i in range(len(ret_records))]
             d = dict(d1)
-        arr.append(d)
+            arr.append(d)
         j+=1
     return arr
 
@@ -55,6 +57,10 @@ def result():
          names.append(result['textbox'+str(i)])
          required_fields.append(result.getlist('interest'+str(i)))
       print(names,required_fields)
+      for required_field in required_fields:
+          if(len(required_field)==0):
+            flash('Please select atleast one field !!', 'danger')
+            return render_template("lol.html")
       for i in range(len(required_fields)):
         required_fields[i] = list(map(Dict_record.get,required_fields[i]))
       qry_lst = [[names[i],required_fields[i]] for i in range(number)]

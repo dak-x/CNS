@@ -8,12 +8,12 @@ class DB:
         return self.database.get(name,-1)
 
     def fetch_fields(self,name,fields,cache=False):
-        record = self.fetch_record(name)
+        record = self.fetch_record(name.lower())
         ans=[]
         if(record==-1):
             return -1
         for field in fields:
-            ans.append(self.database[name].get(field,''))
+            ans.append(self.database[name.lower()].get(field,''))
         return ans
 
 

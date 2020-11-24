@@ -35,10 +35,7 @@ body{width: 100%;line-height:1.6;font-size:18px;color:#444;background-image:url(
   </style>
   
   </head>
-  
-  <body>
 
-  
   <script type="text/javascript">
   
   $(document).ready(function(){
@@ -99,7 +96,15 @@ body{width: 100%;line-height:1.6;font-size:18px;color:#444;background-image:url(
 <!--===============================================================================================-->
 </head>
 <body>
-
+{% with messages=get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" style="box-shadow: none;">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
 
 	<div class="container-contact100" style="background-image:url('static/bg1.jpg')!important;">
 		<div class="wrap-contact100" style="width: 50%;height:50%;background-color: transparent!important;">

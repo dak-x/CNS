@@ -12,7 +12,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let mut sock = UdpSocket::bind("0.0.0.0:0")?;
     
     let msg = make_message(
-        "Rob Marlo",
+        "dqiku uwbkqj f",
         &["Phone No.", "Email Personal", "Email Institute"],
     );
 

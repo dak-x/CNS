@@ -39,7 +39,7 @@ class CreateDB:
 
     def Generate(self):
         for name in self.names:
-            self.DB[name] = self.CreateRecord(name)
+            self.DB[name.lower()] = self.CreateRecord(name)
 
     def SaveDB(self, filename):
         with open(filename, 'w') as fp:
