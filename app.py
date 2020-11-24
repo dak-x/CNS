@@ -14,7 +14,7 @@ records = server_config.get("records")
 Dict_record = {"phone_number":records[0],
                "email_institute":records[1],
                "email_personal":records[2],
-               "section`":records[3]}
+               "section":records[3]}
 
 # ------------------------------------------------
 
