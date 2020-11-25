@@ -6,16 +6,16 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     addr.pop();
     let addr = format! {"{}:{}",&addr[1..],SV_PORT.to_string()};
 
-    println! {"{}",addr};
+    // println! {"{}",addr};
     let sock = UdpSocket::bind("0.0.0.0:0")?;
     
     let msg = make_message(
-        "dqiku uwbkqj f",
+        "Rob Marlo",
         &["Phone No.", "Email Personal", "Email Institute"],
     );
 
     
-    println! {"{:?}\n\n",msg};
+    println! {"Sent Message: \n {:#?}\n\n",msg};
     let msg = msg.encode();
     let mut buf = [0; 1024];
     sock.send_to(msg.as_slice(), addr)?;
@@ -24,7 +24,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     let buf = &mut buf[..bytes];
 
     let recv_message: Message = CnsSend::decode(buf);
-    println! {"{:?}",recv_message};
+    println! {"Received Message: \n{:#?}",recv_message};
 
     Ok(())
 }
