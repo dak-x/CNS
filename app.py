@@ -64,7 +64,7 @@ def result():
       for i in range(len(required_fields)):
         required_fields[i] = list(map(Dict_record.get,required_fields[i]))
       qry_lst = [[names[i],required_fields[i]] for i in range(number)]
-      c.make_qrymsg(qry_lst)
+      c.make_qrymsg(qry_lst,True)
       c.send_qry()
       d = c.rcv_msg()
       d = Message.decode(d)

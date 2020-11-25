@@ -12,6 +12,7 @@ class DB:
     def fetch_fields(self,name,fields,cacheFlag=False):
         name = name.lower()
         if(cacheFlag and (name in self.cache)):
+            print('Returned from Cache!!')
             record = self.cache_dict.get(name)
         else:
             record = self.fetch_record(name)

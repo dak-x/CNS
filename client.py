@@ -17,10 +17,10 @@ class Client:
     def send_qry(self):
         self.sock.sendto(self.msg.encode(), (self.dest_addr, self.dest_port))
 
-    def make_qrymsg(self, qrylst):
+    def make_qrymsg(self, qrylst, cacheFlag = True):
         queries = []
         for (name, field_list) in qrylst:
-            q = Query.make_query(name, field_list)
+            q = Query.make_query(name, field_list,cacheFlag)
             queries.append(q)
         self.msg.add_queries(queries)
 

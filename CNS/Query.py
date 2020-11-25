@@ -55,7 +55,7 @@ class Query():
         return self.which_fields//128 == 1
 
     @staticmethod
-    def make_query(name, fields):
+    def make_query(name, fields, cacheFlag=True):
         """
         Params: name - key , fields - Iterable:String \n
         Creates a Query Object which pertains to a query which request the fields of the key.
@@ -66,6 +66,8 @@ class Query():
             which_fields += FIELDS_IDX.get(field, 0)
         newQuery = Query()
         newQuery.which_fields = which_fields
+        if(cacheFlag):
+            newQuery.which_fields |= 128
         newQuery.name = name
 
         return newQuery
@@ -88,6 +90,7 @@ class Query():
         Params: db - database object\n
         Returns a Answer Object which is the result of the query.
         """
+        #print('debug',self.if_cache())
         answer_fields = db.fetch_fields(self.name, self.get_fields_list(),self.if_cache())
         if(answer_fields == -1):
             status_code = 0
