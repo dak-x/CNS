@@ -1,6 +1,6 @@
 import json
 from random import randint
-
+import toml
 # Generates 
 class CreateDB:
     def __init__(self, personal_domain, institute_domain, Sections, names):
@@ -45,7 +45,8 @@ class CreateDB:
         with open(filename, 'w') as fp:
             json.dump(self.DB, fp)
 
-
+conf = toml.load("setup.toml")
+database_config = conf.get("database")
 personal_domain = '@gmail.com'
 institue_domain = '@itu.edu.in'
 Sections = ['Academic', 'Administration', 'Director Office', 'Hostel']
@@ -55,4 +56,4 @@ names = ['Rob Marlo', 'Chenzi Dobi', 'Bran Lopez',
 
 C_X = CreateDB(personal_domain, institue_domain, Sections, names)
 C_X.Generate()
-C_X.SaveDB('data.json')
+C_X.SaveDB(database_config.get("path"))

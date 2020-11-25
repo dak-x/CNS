@@ -7,4 +7,5 @@ buffer = 1024
 
 [database]
 records = ["Phone No.", "Email Institute", "Email Personal", "Section"]
+path = "data.json"
 

@@ -21,10 +21,11 @@ class Server:
         # get the port from the config file
         conf = toml.load(config)
         server_config = conf.get("server")
+        database_config = conf.get("database")
         self.port = server_config.get("port")
         self.host = server_config.get("IP")
         self.buffer = server_config.get("buffer")
-        self.db = DB("data.json")
+        self.db = DB(database_config.get("path"))
         self.log = logging.getLogger()
         self.log.setLevel(0)
 
