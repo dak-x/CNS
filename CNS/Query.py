@@ -1,6 +1,6 @@
 from DB import DB
 import toml
-from Answer import Answer
+from CNS.Answer import Answer
 from copy import copy
 
 FIELDS = toml.load("setup.toml")["database"]["records"]

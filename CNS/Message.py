@@ -1,7 +1,5 @@
 from DB import DB
-from Answer import Answer
-from Query import Query
-from Header import Header
+from CNS import Answer,Query,Header
 
 class Message():
     """

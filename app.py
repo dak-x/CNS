@@ -1,8 +1,8 @@
 from flask import Flask, render_template, request,Response, flash
 from client import Client
-from Message import Message
-from Answer import Answer
+from CNS import Answer,Message
 import pandas as pd
+
 
 import toml
 conf = toml.load("setup.toml")

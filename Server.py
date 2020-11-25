@@ -1,6 +1,6 @@
 import toml
 import socket
-from Message import Message
+from CNS import Message
 from DB import DB
 import logging
 
