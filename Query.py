@@ -88,7 +88,7 @@ class Query():
         Params: db - database object\n
         Returns a Answer Object which is the result of the query.
         """
-        answer_fields = db.fetch_fields(self.name, self.get_fields_list())
+        answer_fields = db.fetch_fields(self.name, self.get_fields_list(),self.if_cache())
         if(answer_fields == -1):
             status_code = 0
             answer_fields = []
